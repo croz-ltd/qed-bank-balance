@@ -1,11 +1,17 @@
 package net.croz.qed.bank.balance.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 
+@Table
+@Entity
 public class Balance {
 
-    private String oib;
+    @Id
     private String iban;
+    private String oib;
     private BigDecimal balance;
 
     public String getOib() {

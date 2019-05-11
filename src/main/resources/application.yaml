@@ -5,3 +5,13 @@ opentracing:
   jaeger:
     http-sender:
       url: http://localhost:16686/api/traces
+
+spring:
+  datasource:
+    hikari:
+      jdbc-url: ${JDBC_URL:jdbc:h2:file:~/db/h2/balance}
+      username: ${JDBC_USERNAME:sa}
+      password: ${JDBC_PASSWORD:sa}
+  jpa:
+    hibernate:
+      ddl-auto: update
