@@ -4,7 +4,7 @@ server:
 opentracing:
   jaeger:
     http-sender:
-      url: http://localhost:16686/api/traces
+      url: ${JAEGER_URL:http://localhost:16686/api/traces}
 
 spring:
   datasource:
