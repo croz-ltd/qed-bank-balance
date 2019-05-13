@@ -13,6 +13,19 @@ public class Balance {
     private String iban;
     private String oib;
     private BigDecimal balance;
+    private String currency;
+    private String country;
+
+    public Balance() {
+    }
+
+    public Balance(final String iban, final String oib, final BigDecimal balance, final String currency, final String country) {
+        this.iban = iban;
+        this.oib = oib;
+        this.balance = balance;
+        this.currency = currency;
+        this.country = country;
+    }
 
     public String getOib() {
         return oib;
@@ -36,5 +49,21 @@ public class Balance {
 
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }

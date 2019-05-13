@@ -2,40 +2,39 @@ package net.croz.qed.bank.balance.dao.impl;
 
 import net.croz.qed.bank.balance.dao.BalanceRepository;
 import net.croz.qed.bank.balance.model.Balance;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class BalancePopulator {
 
-
     private BalanceRepository balanceRepository;
 
-    public BalancePopulator(BalanceRepository balanceRepository) {
-
+    @Autowired
+    public BalancePopulator(final BalanceRepository balanceRepository) {
         this.balanceRepository = balanceRepository;
     }
 
     @PostConstruct
     @Transactional
     public void populate() {
-        Balance balance1 = new Balance();
-        balance1.setOib("12345678901");
-        balance1.setBalance(new BigDecimal("200.12"));
-        balance1.setIban("HR12345");
-        if (!balanceRepository.existsById(balance1.getIban())) {
-            balanceRepository.save(balance1);
-        }
+        final List<Balance> balances = new ArrayList<>();
+        balances.add(new Balance("HR8023400092673653924", "11111111111", new BigDecimal("75442.93"), "HRK", "hr"));
+        balances.add(new Balance("HR3424840089132778851", "11111111111", new BigDecimal("442.93"), "HRK", "hr"));
 
-        Balance balance2 = new Balance();
-        balance2.setOib("12345678901");
-        balance2.setBalance(new BigDecimal("100.12"));
-        balance2.setIban("HR66666");
-        if (!balanceRepository.existsById(balance2.getIban())) {
-            balanceRepository.save(balance2);
+        balances.add(new Balance("GB25BARC20038019521813", "22222222222", new BigDecimal("7921.33"), "GBP", "gb"));
+        balances.add(new Balance("DE84500105173926674695", "22222222222", new BigDecimal("9431.39"), "EUR", "de"));
+
+        for (final Balance balance : balances) {
+            if (!balanceRepository.existsById(balance.getIban())) {
+                balanceRepository.save(balance);
+            }
         }
     }
 }
