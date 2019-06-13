@@ -1,0 +1,71 @@
+image: docker:latest
+services:
+  - docker:dind
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2"
+  SPRING_PROFILES_ACTIVE: production
+  IMAGE_TAG: registry.dmz.croz.net/qed2019/qed-bank-balance:latest
+
+stages:
+  - build
+  - quality-control
+  - package
+  - deploy
+
+cache:
+  paths:
+    - .m2/
+
+#############
+# MVN Build #
+#############
+maven-build:
+  stage: build
+  tags:
+    - maven
+  image: maven:3-jdk-8
+  script: "mvn package -B"
+  artifacts:
+    paths:
+      - target/*.jar
+
+#############################
+# SonarQube Quality Control #
+#############################
+quality-control:
+  stage: quality-control
+  tags:
+    - maven
+  image: maven:3-jdk-8
+  script: "mvn --batch-mode verify sonar:sonar -Dsonar.analysis.mode=publish -Dsonar.gitlab.project_id=$CI_PROJECT_PATH -Dsonar.gitlab.commit_sha=$CI_COMMIT_SHA -Dsonar.gitlab.ref_name=$CI_COMMIT_REF_NAME"
+  artifacts:
+    paths:
+      - target/*.jar
+
+##################
+# Docker Publish #
+##################
+docker-build:
+  stage: package
+  tags:
+    - docker
+  script:
+    - docker build -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
+  only:
+    - master
+
+####################
+# OpenShift Deploy #
+####################
+openshift-deploy:
+  stage: deploy
+  image: ayufan/openshift-cli
+  before_script:
+    - oc login https://os-master.lan.croz.net:8443 --token="$OPENSHIFT_AUTH_TOKEN" --insecure-skip-tls-verify
+    - oc project qed-bank
+  script:
+    - oc import-image qed-bank-balance --from=$IMAGE_TAG --confirm
+  only:
+    - master
