@@ -15,7 +15,7 @@ public class QedBankBalanceApplication {
     @Bean
     public static JaegerTracer getTracer() {
         final Configuration.SamplerConfiguration samplerConfig = Configuration.SamplerConfiguration.fromEnv().withType("const").withParam(1);
-        final Configuration.ReporterConfiguration reporterConfig = Configuration.ReporterConfiguration.fromEnv().withLogSpans(true);
+        final Configuration.ReporterConfiguration reporterConfig = Configuration.ReporterConfiguration.fromEnv().withLogSpans(Boolean.TRUE);
         return new Configuration("qed-bank-balance").withSampler(samplerConfig).withReporter(reporterConfig).getTracer();
     }
 }
