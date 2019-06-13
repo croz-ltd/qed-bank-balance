@@ -10,7 +10,6 @@ variables:
 stages:
   - build
   - quality-control
-  - package
   - deploy
 
 cache:
@@ -42,19 +41,6 @@ quality-control:
   artifacts:
     paths:
       - target/*.jar
-
-##################
-# Docker Publish #
-##################
-docker-build:
-  stage: package
-  tags:
-    - docker
-  script:
-    - docker build -t $IMAGE_TAG .
-    - docker push $IMAGE_TAG
-  only:
-    - master
 
 ####################
 # OpenShift Deploy #
