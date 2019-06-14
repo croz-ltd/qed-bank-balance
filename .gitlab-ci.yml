@@ -5,7 +5,7 @@ services:
 variables:
   MAVEN_OPTS: "-Dmaven.repo.local=.m2"
   SPRING_PROFILES_ACTIVE: production
-  IMAGE_TAG: registry.dmz.croz.net/qed2019/qed-bank-balance:latest
+  IMAGE_NAME: registry.dmz.croz.net/qed2019/qed-bank-balance
 
 stages:
   - build
@@ -52,6 +52,6 @@ openshift-deploy:
     - oc login https://os-master.lan.croz.net:8443 --token="$OPENSHIFT_AUTH_TOKEN" --insecure-skip-tls-verify
     - oc project qed-bank
   script:
-    - oc import-image qed-bank-balance --from=$IMAGE_TAG --confirm
+    - oc import-image qed-bank-balance --from=$IMAGE_NAME --confirm
   only:
     - master
