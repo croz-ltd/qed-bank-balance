@@ -18,7 +18,7 @@ import java.util.Optional;
 @RestController
 public class BalanceController {
 
-    private transient final BalanceRepository balanceRepository;
+    private final transient BalanceRepository balanceRepository;
 
     @Autowired
     public BalanceController(final BalanceRepository balanceRepository) {
