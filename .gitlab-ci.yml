@@ -47,7 +47,7 @@ quality-control:
 # JIB package #
 ###############
 jib-package:
-  stage: build
+  stage: package
   tags:
     - maven
   image: maven:3-jdk-8
