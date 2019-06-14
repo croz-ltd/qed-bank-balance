@@ -10,8 +10,8 @@ import java.util.Optional;
 @Repository
 public interface BalanceRepository extends JpaRepository<Balance, String> {
 
-    Optional<List<Balance>> findAllByOib(final String oib);
+    Optional<List<Balance>> findAllByOib(String oib);
 
-    Optional<Balance> findByIban(final String iban);
+    Optional<Balance> findByIban(String iban);
 
 }

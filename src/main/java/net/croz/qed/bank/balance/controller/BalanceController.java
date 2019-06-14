@@ -18,10 +18,10 @@ import java.util.Optional;
 @RestController
 public class BalanceController {
 
-    private final BalanceRepository balanceRepository;
+    private transient final BalanceRepository balanceRepository;
 
     @Autowired
-    public BalanceController(BalanceRepository balanceRepository) {
+    public BalanceController(final BalanceRepository balanceRepository) {
         this.balanceRepository = balanceRepository;
     }
 
@@ -40,7 +40,7 @@ public class BalanceController {
         final Optional<Balance> balanceByIban = balanceRepository.findByIban(addFund.getIban());
         if (balanceByIban.isPresent()) {
             final Balance balance = balanceByIban.get();
-            balance.setBalance(balance.getBalance().add(addFund.getFund()));
+            balance.setAmount(balance.getAmount().add(addFund.getFund()));
             balanceRepository.save(balance);
 
             return new ResponseEntity<>(HttpStatus.OK);

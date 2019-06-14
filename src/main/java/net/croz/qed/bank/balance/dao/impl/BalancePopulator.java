@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public class BalancePopulator {
 
-    private BalanceRepository balanceRepository;
+    private transient final BalanceRepository balanceRepository;
 
     @Autowired
     public BalancePopulator(final BalanceRepository balanceRepository) {
