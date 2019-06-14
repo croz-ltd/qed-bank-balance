@@ -10,6 +10,7 @@ variables:
 stages:
   - build
   - quality-control
+  - package
   - deploy
 
 cache:
@@ -41,6 +42,16 @@ quality-control:
   artifacts:
     paths:
       - target/*.jar
+
+###############
+# JIB package #
+###############
+jib-package:
+  stage: build
+  tags:
+    - maven
+  image: maven:3-jdk-8
+  script: "mvn compile jib:build"
 
 ####################
 # OpenShift Deploy #
