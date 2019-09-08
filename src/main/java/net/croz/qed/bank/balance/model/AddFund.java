@@ -3,6 +3,7 @@ package net.croz.qed.bank.balance.model;
 import java.math.BigDecimal;
 
 public class AddFund {
+
     private String iban;
     private BigDecimal fund;
 
@@ -29,4 +30,5 @@ public class AddFund {
     public void setFund(final BigDecimal fund) {
         this.fund = fund;
     }
+
 }

@@ -34,54 +34,54 @@ public class BalanceControllerTest {
     @Test
     public void whenGetBalancesByOib_thenStatus200() throws Exception {
         mockMvc.perform(get("/balance/oib/11111111111")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].oib", is("11111111111")));
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$", hasSize(2)))
+            .andExpect(jsonPath("$[0].oib", is("11111111111")));
     }
 
     @Test
     public void whenGetBalancesByOib_thenStatus404() throws Exception {
         mockMvc.perform(get("/balance/oib/00000000000")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$").doesNotExist());
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNotFound())
+            .andExpect(jsonPath("$").doesNotExist());
     }
 
     @Test
     public void whenGetBalanceByIban_thenStatus200() throws Exception {
         mockMvc.perform(get("/balance/iban/HR8023400092673653924")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$").exists())
-                .andExpect(jsonPath("$.oib", is("11111111111")));
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$").exists())
+            .andExpect(jsonPath("$.oib", is("11111111111")));
     }
 
     @Test
     public void whenGetBalanceByIban_thenStatus404() throws Exception {
         mockMvc.perform(get("/balance/iban/HR0099999990000000000")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$").doesNotExist());
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNotFound())
+            .andExpect(jsonPath("$").doesNotExist());
     }
 
     @Test
     public void whenModifyBalance_thenStatus200() throws Exception {
         mockMvc.perform(post("/balance/modify")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(asJson(new AddFund("HR8023400092673653924", BigDecimal.ONE))))
-                .andExpect(status().isOk());
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(asJson(new AddFund("HR8023400092673653924", BigDecimal.ONE))))
+            .andExpect(status().isOk());
     }
 
     @Test
     public void whenModifyBalance_thenStatus404() throws Exception {
         mockMvc.perform(post("/balance/modify")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(asJson(new AddFund("HR0099999990000000000", BigDecimal.ONE))))
-                .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$").doesNotExist());
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(asJson(new AddFund("HR0099999990000000000", BigDecimal.ONE))))
+            .andExpect(status().isNotFound())
+            .andExpect(jsonPath("$").doesNotExist());
     }
 
     private String asJson(final Object object) {
@@ -91,4 +91,5 @@ public class BalanceControllerTest {
             throw new RuntimeException("Fail to serialize json payload", e);
         }
     }
+
 }

@@ -19,7 +19,8 @@ public class Balance {
     public Balance() {
     }
 
-    public Balance(final String iban, final String oib, final BigDecimal amount, final String currency, final String country) {
+    public Balance(final String iban, final String oib, final BigDecimal amount, final String currency,
+        final String country) {
         this.iban = iban;
         this.oib = oib;
         this.amount = amount;
@@ -66,4 +67,5 @@ public class Balance {
     public void setCountry(final String country) {
         this.country = country;
     }
+
 }

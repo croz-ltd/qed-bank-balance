@@ -19,7 +19,6 @@ public class QedBankBalanceApplicationTest {
     @Value("${spring.application.name}")
     private String springApplicationName;
 
-
     @Test
     public void verifyJaegerTracerExist() {
         Assert.assertNotNull("Jaeger Tracer should be defined", jaegerTracer);
@@ -30,4 +29,5 @@ public class QedBankBalanceApplicationTest {
         Assert.assertNotNull("Jaeger Tracer should be defined", jaegerTracer);
         Assert.assertEquals(jaegerTracer.getServiceName(), springApplicationName);
     }
+
 }

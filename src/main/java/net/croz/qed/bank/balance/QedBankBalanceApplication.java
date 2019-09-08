@@ -20,4 +20,5 @@ public class QedBankBalanceApplication {
         final Configuration.ReporterConfiguration reporterConfig = Configuration.ReporterConfiguration.fromEnv().withLogSpans(Boolean.TRUE);
         return new Configuration(applicationName).withSampler(samplerConfig).withReporter(reporterConfig).getTracer();
     }
+
 }
