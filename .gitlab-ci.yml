@@ -38,8 +38,11 @@ quality-control:
   tags:
     - maven
   image: maven:3-jdk-8
-  script: "mvn --batch-mode verify sonar:sonar -Dsonar.analysis.mode=publish -Dsonar.gitlab.project_id=$CI_PROJECT_PATH -Dsonar.gitlab.commit_sha=$CI_COMMIT_SHA -Dsonar.gitlab.ref_name=$CI_COMMIT_REF_NAME"
+  script: "mvn --batch-mode verify test sonar:sonar -Dsonar.analysis.mode=publish -Dsonar.gitlab.project_id=$CI_PROJECT_PATH -Dsonar.gitlab.commit_sha=$CI_COMMIT_SHA -Dsonar.gitlab.ref_name=$CI_COMMIT_REF_NAME"
   artifacts:
+    reports:
+      junit:
+        - target/surefire-reports/TEST-*.xml
     paths:
       - target/*.jar
 
