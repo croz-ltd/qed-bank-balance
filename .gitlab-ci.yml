@@ -61,15 +61,13 @@ jib-package:
 publish-public:
   stage: publish
   before_script:
-    - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" docker.io
-    - docker login -u "$QUAY_USERNAME" -p "$QUAY_PASSWORD" quay.io
+    - buildah login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" docker.io
+    - buildah login -u "$QUAY_USERNAME" -p "$QUAY_PASSWORD" quay.io
   script:
     - skopeo --insecure-policy copy docker://registry.dmz.croz.net/qed2019/qed-bank-balance:latest docker://docker.io/crozltd/qed-bank-balance
     - skopeo --insecure-policy copy docker://registry.dmz.croz.net/qed2019/qed-bank-balance:latest docker://quay.io/crozltd/qed-bank-balance
   only:
     - master
-  when: manual
-  allow_failure: false
 
 ####################
 # OpenShift Deploy #
