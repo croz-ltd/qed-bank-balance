@@ -43,6 +43,13 @@
             <artifactId>jaeger-core</artifactId>
             <version>0.35.3</version>
         </dependency>
+
+        <!-- Testing -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -57,7 +64,7 @@
                 <version>1.2.0</version>
                 <configuration>
                     <to>
-                        <image>registry.dmz.croz.net/qed2019/qed-bank-balance</image>
+                        <image>crozltd/qed-bank-balance</image>
                     </to>
                 </configuration>
             </plugin>

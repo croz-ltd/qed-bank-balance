@@ -6,6 +6,14 @@ public class AddFund {
     private String iban;
     private BigDecimal fund;
 
+    public AddFund() {
+    }
+
+    public AddFund(final String iban, final BigDecimal fund) {
+        this.iban = iban;
+        this.fund = fund;
+    }
+
     public String getIban() {
         return iban;
     }

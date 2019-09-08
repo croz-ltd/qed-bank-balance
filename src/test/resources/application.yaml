@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: qed-bank-balance-test
+  datasource:
+    hikari:
+      jdbc-url: ${JDBC_URL:jdbc:h2:mem:balance}
