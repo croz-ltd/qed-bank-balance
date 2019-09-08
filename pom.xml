@@ -14,6 +14,23 @@
     <artifactId>qed-bank-balance</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
+    <name>CROZ QED Bank - Balance</name>
+
+    <developers>
+        <developer>
+            <name>Denis Jajčević</name>
+            <email>djajcevic@croz.net</email>
+            <organization>CROZ d.o.o.</organization>
+            <organizationUrl>www.croz.net</organizationUrl>
+        </developer>
+        <developer>
+            <name>Milan Jovanović</name>
+            <email>mjovanovic@croz.net</email>
+            <organization>CROZ d.o.o.</organization>
+            <organizationUrl>www.croz.net</organizationUrl>
+        </developer>
+    </developers>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
