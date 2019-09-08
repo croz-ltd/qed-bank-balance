@@ -1,0 +1,15 @@
+language: java
+jdk: openjdk8
+
+env:
+  global:
+    - secure: ""
+
+addons:
+  sonarcloud:
+    organization: "croz-ltd"
+    token:
+      secure: $SONAR_TOKEN
+
+script:
+  - ./mvnw clean package sonar:sonar
