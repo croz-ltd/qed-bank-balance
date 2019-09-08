@@ -92,7 +92,6 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <destFile>${sonar.jacoco.reportPath}</destFile>
                     <excludes>
                         <exclude>**/net/croz/qed/bank/**/QedBank**Application</exclude>
                         <exclude>**/net/croz/qed/bank/**/model/**</exclude>
