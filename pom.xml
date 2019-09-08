@@ -85,7 +85,7 @@
                 <version>1.2.0</version>
                 <configuration>
                     <to>
-                        <image>crozltd/qed-bank-balance</image>
+                        <image>registry.dmz.croz.net/qed2019/qed-bank-balance</image>
                     </to>
                 </configuration>
             </plugin>

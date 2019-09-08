@@ -1,16 +1,14 @@
-image: docker:latest
-services:
-  - docker:dind
+image: registry.dmz.croz.net/croz/build-image:buildah-1.10.1-oc-3.11.1-podman-1.5.1-skopeo-0.1.37
 
 variables:
   MAVEN_OPTS: "-Dmaven.repo.local=.m2"
   SPRING_PROFILES_ACTIVE: production
-  IMAGE_NAME: registry.dmz.croz.net/qed2019/qed-bank-balance
 
 stages:
   - build
   - quality-control
   - package
+  - publish
   - deploy
 
 cache:
@@ -54,7 +52,24 @@ jib-package:
   tags:
     - maven
   image: maven:3-jdk-8
-  script: "mvn compile jib:build"
+  script:
+    - mvn compile jib:build
+
+####################################
+# Copy images to public registries #
+####################################
+publish-public:
+  stage: publish
+  before_script:
+    - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" docker.io
+    - docker login -u "$QUAY_USERNAME" -p "$QUAY_PASSWORD" quay.io
+  script:
+    - skopeo --insecure-policy copy docker://registry.dmz.croz.net/qed2019/qed-bank-balance:latest docker://docker.io/crozltd/qed-bank-balance
+    - skopeo --insecure-policy copy docker://registry.dmz.croz.net/qed2019/qed-bank-balance:latest docker://quay.io/crozltd/qed-bank-balance
+  only:
+    - master
+  when: manual
+  allow_failure: false
 
 ####################
 # OpenShift Deploy #
@@ -66,6 +81,6 @@ openshift-deploy:
     - oc login https://os-master.lan.croz.net:8443 --token="$OPENSHIFT_AUTH_TOKEN" --insecure-skip-tls-verify
     - oc project qed-bank
   script:
-    - oc import-image qed-bank-balance --from=$IMAGE_NAME --confirm
+    - oc import-image qed-bank-balance --confirm
   only:
     - master
