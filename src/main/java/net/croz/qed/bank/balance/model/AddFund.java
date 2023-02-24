@@ -7,6 +7,8 @@ public class AddFund {
     private String iban;
     private BigDecimal fund;
 
+    private String description;
+
     public AddFund() {
     }
 
@@ -31,4 +33,11 @@ public class AddFund {
         this.fund = fund;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

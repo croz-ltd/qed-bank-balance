@@ -3,6 +3,8 @@ package net.croz.qed.bank.balance.controller;
 import net.croz.qed.bank.balance.dao.BalanceRepository;
 import net.croz.qed.bank.balance.model.AddFund;
 import net.croz.qed.bank.balance.model.Balance;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,6 +20,8 @@ import java.util.Optional;
 
 @RestController
 public class BalanceController {
+
+    public static final Logger log = LoggerFactory.getLogger(BalanceController.class);
 
     private final transient BalanceRepository balanceRepository;
 
@@ -42,6 +46,7 @@ public class BalanceController {
         if (balanceByIban.isPresent()) {
             final Balance balance = balanceByIban.get();
             balance.setAmount(balance.getAmount().add(addFund.getFund()));
+            log.info("Adding amount {} from {} with description {}", addFund.getFund(), addFund.getIban(), addFund.getDescription());
             balanceRepository.save(balance);
 
             return new ResponseEntity<>(HttpStatus.OK);
