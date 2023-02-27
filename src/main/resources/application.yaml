@@ -1,11 +1,6 @@
 server:
   port: ${SERVER_PORT:8666}
 
-opentracing:
-  jaeger:
-    http-sender:
-      url: ${JAEGER_URL:http://localhost:16686/api/traces}
-
 spring:
   datasource:
     hikari:
@@ -17,3 +12,16 @@ spring:
       ddl-auto: update
   application:
     name: qed-bank-balance
+#  sleuth:
+#    otel:
+#      log:
+#        slf4j:
+#          enabled: true
+#      exporter:
+#
+#        jaeger:
+#          enabled: false
+##        otlp:
+##          enabled: false
+#      config:
+#        trace-id-ratio-based: 1.0

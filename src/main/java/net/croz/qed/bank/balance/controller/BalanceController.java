@@ -32,6 +32,7 @@ public class BalanceController {
 
     @GetMapping(value = "/balance/oib/{oib}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Balance>> getBalanceByOib(@PathVariable final String oib) {
+        log.info("test");
         return ResponseEntity.of(balanceRepository.findAllByOib(oib));
     }
 

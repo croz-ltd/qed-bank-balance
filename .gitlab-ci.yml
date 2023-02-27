@@ -1,0 +1,21 @@
+stages:
+  - build
+  - containerise
+
+variables:
+  CONTAINER_REGISTRY: "harbor.croz.net"
+  CONTAINER_PROJECT: "devops-course"
+  USERNAME: "${CI_PROJECT_ROOT_NAMESPACE}"
+
+build:
+  stage: build
+  script:
+    - ./build.sh
+  artifacts:
+    paths:
+      - /target/*.jar
+
+containerise:
+  stage: containerise
+  script:
+    - ./containerise.sh
