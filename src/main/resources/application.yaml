@@ -12,16 +12,8 @@ spring:
       ddl-auto: update
   application:
     name: qed-bank-balance
-#  sleuth:
-#    otel:
-#      log:
-#        slf4j:
-#          enabled: true
-#      exporter:
-#
-#        jaeger:
-#          enabled: false
-##        otlp:
-##          enabled: false
-#      config:
-#        trace-id-ratio-based: 1.0
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,prometheus
